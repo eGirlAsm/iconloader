@@ -67,6 +67,10 @@ BEGIN_MESSAGE_MAP(CMFCApplication1Dlg, CDialogEx)
 	ON_MESSAGE(WM_SHOWTASK, onShowTask)
 	ON_BN_CLICKED(IDC_BUTTON1, &CMFCApplication1Dlg::OnBnClickedButton1)
 	ON_WM_CLOSE()
+	ON_BN_CLICKED(IDC_BUTTON2, &CMFCApplication1Dlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication1Dlg::OnBnClickedButton3)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication1Dlg::OnBnClickedButton4)
+	ON_BN_CLICKED(IDC_BUTTON5, &CMFCApplication1Dlg::OnBnClickedButton5)
 END_MESSAGE_MAP()
 
 
@@ -187,7 +191,7 @@ HCURSOR CMFCApplication1Dlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
-void CMFCApplication1Dlg::ToTray() {
+void CMFCApplication1Dlg::ToTray(CString filename) {
 	m_nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
 	m_nid.hWnd = this->m_hWnd;
 	m_nid.uID = IDR_MAINFRAME;
@@ -196,7 +200,7 @@ void CMFCApplication1Dlg::ToTray() {
 
 	//自定义的消息名称 WM_SHOWTASK 头函数中定义为WM_USER+1
 	HICON hIco = (HICON)LoadImage(AfxGetResourceHandle(),
-		L"MyIcon.ico", IMAGE_ICON, 32, 32,
+		filename, IMAGE_ICON, 32, 32,
 		LR_LOADFROMFILE);
 	m_nid.hIcon = hIco;//LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
 	lstrcpy(m_nid.szTip, L"the icon test");//当鼠标放在上面时，所显示的内容
@@ -207,7 +211,7 @@ void CMFCApplication1Dlg::ToTray() {
 void CMFCApplication1Dlg::OnBnClickedButton1()
 {
 	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
-	ToTray();
+	ToTray(L"MyIcon.ico");
 	// TODO: Add your control notification handler code here
 
 }
@@ -218,4 +222,36 @@ void CMFCApplication1Dlg::OnClose()
 	// TODO: Add your message handler code here and/or call default
 	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
 	CDialogEx::OnClose();
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton2()
+{
+	// TODO: Add your control notification handler code here
+	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
+	ToTray(L"MyIcon1.ico");
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton3()
+{
+	// TODO: Add your control notification handler code here
+	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
+	ToTray(L"MyIcon2.ico");
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton4()
+{
+	// TODO: Add your control notification handler code here
+	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
+	ToTray(L"MyIcon3.ico");
+}
+
+
+void CMFCApplication1Dlg::OnBnClickedButton5()
+{
+	// TODO: Add your control notification handler code here
+	::Shell_NotifyIcon(NIM_DELETE, &m_nid);
+	ToTray(L"MyIcon4.ico");
 }
